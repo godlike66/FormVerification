@@ -24,5 +24,3 @@ function GetDiffDateStr(AddDayCount) {
     var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
     return y + "-" + m + "-" + d;
 }
-
-//测试分支的提交方法
