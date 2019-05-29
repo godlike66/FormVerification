@@ -25,3 +25,38 @@ function isEmail(value) {
     var p = /^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+@[-!#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$/;
     return p.test(value);
 }
+
+/*JQuery 限制文本框只能输入数字*/
+$.fn.numeral = function () {
+    $(this).keyup(function () {
+        $(this).val($(this).val().replace(/[^\d]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理      
+        $(this).val($(this).val().replace(/[^\d]/g, ''));
+    }).css("ime-mode", "disabled"); //CSS设置输入法不可用      
+}
+/*JQuery 限制文本框只能输入数字和小数点*/
+$.fn.numedot = function () {
+    $(this).bind("keypress", function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which); //兼容火狐 IE 
+        if (!$.support && (e.keyCode == 0x8)) { //火狐下不能使用退格键 
+            return;
+        }
+        var nubmer = $(this).val();
+        if (code == 45 && nubmer.indexOf("-") == -1) {
+            return;
+        }
+        if (code == 46 && nubmer.indexOf(".") == -1) {
+            return;
+        }
+        return code >= 48 && code <= 57
+    }).bind("keyup", function (e) {  //CTR+V事件处理 
+
+    }).bind("paste", function (e) {  //CTR+V事件处理    
+        return false;
+    }).bind("blur", function () {
+        var nubmer = $(this).val();
+        if (isNaN(nubmer)) {
+            $(this).val('');
+        }
+    }).css("ime-mode", "disabled"); //CSS设置输入法不可用      
+}
