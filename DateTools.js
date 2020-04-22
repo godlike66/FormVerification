@@ -1,4 +1,4 @@
-﻿//格式化日期
+﻿//格式化日期-ss
 Date.prototype.Format = function (fmt) {
     var o = {
         "M+": this.getMonth() + 1, //月份 
